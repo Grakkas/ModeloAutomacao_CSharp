@@ -74,5 +74,4 @@ namespace ModeloAutomacao_CSharp.Web.Utils
             Screenshot screenshot = screenshotDriver.GetScreenshot();
             screenshot.SaveAsFile($"{mainPath}{ScenarioName}_{date}.png");
             }
-        }
     }
