@@ -4,7 +4,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
-using System.Globalization;
 using System.IO;
 
 namespace ModeloAutomacao_CSharp.Web.Utils
@@ -22,13 +21,7 @@ namespace ModeloAutomacao_CSharp.Web.Utils
                 };
             DefaultWait.IgnoreExceptionTypes
                 (
-                typeof(ElementClickInterceptedException),
-                typeof(ElementNotInteractableException),
-                typeof(ElementNotSelectableException),
-                typeof(ElementNotVisibleException),
-                typeof(InvalidElementStateException),
-                typeof(NoSuchElementException),
-                typeof(StaleElementReferenceException)
+                typeof(Exception)
                 );
             return DefaultWait;
             }
@@ -46,7 +39,7 @@ namespace ModeloAutomacao_CSharp.Web.Utils
                 }
             catch (Exception e)
                 {
-                throw new NoSuchElementException($"There was an error while trying to find the element: {description} within 8sec. {e.Message}");
+                throw new NoSuchElementException($"There was an error while trying to find the element: {description} within 8sec.");
                 }
             }
 
@@ -56,11 +49,12 @@ namespace ModeloAutomacao_CSharp.Web.Utils
             try
                 {
                 Actions actions = new Actions(DriverFactory.GetWebDriver());
+                ((IJavaScriptExecutor)DriverFactory.GetWebDriver()).ExecuteScript("window.scroll(" + element.Location.X + "," + (element.Location.Y - 200) + ");");
                 actions.MoveToElement(element).Build().Perform();
                 }
-            catch(Exception)
+            catch (Exception e)
                 {
-                throw new ArgumentOutOfRangeException($"Error while trying to move to the following element: {description}");
+                throw new ArgumentOutOfRangeException($"Error while trying to move to the following element: {description}.");
                 }
             }
 
@@ -74,4 +68,5 @@ namespace ModeloAutomacao_CSharp.Web.Utils
             Screenshot screenshot = screenshotDriver.GetScreenshot();
             screenshot.SaveAsFile($"{mainPath}{ScenarioName}_{date}.png");
             }
+        }
     }

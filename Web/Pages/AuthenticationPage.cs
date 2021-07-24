@@ -20,7 +20,7 @@ namespace ModeloAutomacao_CSharp.Web.Pages
             }
 
         //Implementação de Page Objects (Modelo CSharp) 
-        public IWebElement TxtNavigationPage => DriverFactory.GetWebDriver().FindElement(By.ClassName("navigation_page"));
+        public IWebElement TxtNavigationPage => DriverFactory.GetWebDriver().FindElement(By.XPath("//span[@class='navigation_page']"));
         public  IWebElement InputEmailAddress => DriverFactory.GetWebDriver().FindElement(By.Id("email"));
         public  IWebElement InputPassword => DriverFactory.GetWebDriver().FindElement(By.Id("passwd"));
         public  IWebElement BtnSubmitLogin => DriverFactory.GetWebDriver().FindElement(By.Id("SubmitLogin"));

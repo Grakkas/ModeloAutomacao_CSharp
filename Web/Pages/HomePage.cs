@@ -11,7 +11,7 @@ namespace ModeloAutomacao_CSharp.Web.Pages
         {
 
         //Implementação de Page Object (Modelo CSHarp)
-        public IWebElement TxtNavigationPage => DriverFactory.GetWebDriver().FindElement(By.ClassName("navigation_page"));
+        public IWebElement TxtNavigationPage => DriverFactory.GetWebDriver().FindElement(By.XPath("//span[@class='navigation_page']"));
         public IWebElement BtnSignIn => DriverFactory.GetWebDriver().FindElement(By.XPath("//a[@class='login'][contains(.,'Sign in')]"));
         public IWebElement BtnCart => DriverFactory.GetWebDriver().FindElement(By.XPath("//a[@title='View my shopping cart']"));
         public IWebElement BtnRemoveCartItem => DriverFactory.GetWebDriver().FindElement(By.XPath("//a[@title='remove this product from my cart']"));
@@ -24,7 +24,6 @@ namespace ModeloAutomacao_CSharp.Web.Pages
         public bool GoToAuthenticationPage()
             {
             PageHelper.GetVisibleElement(BtnSignIn, "BtnSignIn").Click();
-            Assert.AreEqual(PageHelper.GetVisibleElement(TxtNavigationPage, "TxtNavigationPage").Text.ToLower(), "authentication");
             return true;
             }
 
@@ -32,6 +31,7 @@ namespace ModeloAutomacao_CSharp.Web.Pages
         //Ponto de melhoria: Recebimento de um array bidimensional com o nome e produto para melhor seleção do produto, pois existem produtos com os mesmos nomes
         public bool AddProductToCart(string[] ListOfProductsToAdd)
             {
+            Logger.log($"Adding products to cart {string.Join(" ; ", ListOfProductsToAdd)}", false);
             //Iteração para a lista de produtos a serem adicionadas ao carrinho
             foreach (string productToAdd in ListOfProductsToAdd)
                 {
@@ -42,7 +42,7 @@ namespace ModeloAutomacao_CSharp.Web.Pages
                     if (productInList.Text.Contains(productToAdd))
                         {
                         PageHelper.MoveToElement(productInList, "productInList");
-                        productInList.FindElement(By.XPath(".//span[contains(.,'Add to cart')]")).Click();
+                        PageHelper.GetVisibleElement(productInList.FindElement(By.XPath(".//span[contains(.,'Add to cart')]")), "productInList.btnAddToCart").Click();
                         PageHelper.GetVisibleElement(CardProductAddedToCart, "TxtProductAddedToCart");
                         CardProductAddedToCart.FindElement(By.XPath(".//span[contains(.,'Continue shopping')]")).Click();
                         }

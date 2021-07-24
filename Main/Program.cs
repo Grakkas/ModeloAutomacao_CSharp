@@ -27,7 +27,6 @@ namespace ModeloAutomacao_CSharp.Main
                             {
                             Assert.IsTrue(homePage.CleanCart());
                             string[] ListOfProducts = { "Faded Short Sleeve T-shirts" };
-                            Logger.log($"Adding products to cart {ListOfProducts}", false);
                             Assert.IsTrue(homePage.AddProductToCart(ListOfProducts));
                             PageHelper.TakeScreenshot($"{scenario}_PASSED");
                             Logger.log("Scenario executed with success", true);
@@ -45,7 +44,6 @@ namespace ModeloAutomacao_CSharp.Main
                             {
                             Assert.IsTrue(homePage.CleanCart());
                             string[] ListOfProducts = { "Printed Chiffon Dress", "Blouse", "Printed Dress" };
-                            Logger.log($"Adding products to cart {ListOfProducts}", false);
                             Assert.IsTrue(homePage.AddProductToCart(ListOfProducts));
                             PageHelper.TakeScreenshot($"{scenario}_PASSED");
                             Logger.log("Scenario executed with success");
@@ -63,7 +61,6 @@ namespace ModeloAutomacao_CSharp.Main
                 Logger.log($"End of Execution for Scenario: {scenario}");
                 DriverFactory.CloseWebDriver();
                 }
-            //banho shitzu valor
             #endregion
 
             #region Execute all the scenarios found on the AuthenticationSteps Enum called ListOfScenarios
@@ -105,7 +102,7 @@ namespace ModeloAutomacao_CSharp.Main
                         catch (Exception e)
                             {
                             PageHelper.TakeScreenshot($"{scenario}_FAILED");
-                            Logger.log($"Scenario executed with problems: {e.Message}");
+                            Logger.log($"Scenario executed with problems: {e.Message}, Stacktrace: {e.StackTrace}");
                             break;
                             }
 
