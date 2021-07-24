@@ -14,7 +14,7 @@ namespace ModeloAutomacao_CSharp.Main
 
             //Start the execution of the scenarios
             authenticationScenarios.StartScenariosExecution();
-            homeScenarios.StartScenariosExecution();            
+            homeScenarios.StartScenariosExecution();
             }
         }
     }

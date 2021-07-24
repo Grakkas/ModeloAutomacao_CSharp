@@ -1,5 +1,6 @@
 ﻿
 using ModeloAutomacao_CSharp.Factory;
+using ModeloAutomacao_CSharp.Model;
 using ModeloAutomacao_CSharp.Web.Utils;
 using OpenQA.Selenium;
 using System.Collections.Generic;
@@ -28,17 +29,17 @@ namespace ModeloAutomacao_CSharp.Web.Pages
 
         //Método para adição de multiplos produtos no carrinho, vindo de uma Array de Strings (podendo conter tanto o nome do produto quanto o valor)
         //Ponto de melhoria: Recebimento de um array bidimensional com o nome e produto para melhor seleção do produto, pois existem produtos com os mesmos nomes
-        public bool AddProductToCart(string[] ListOfProductsToAdd)
+        public bool AddProductToCart(List<ProductModel> listOfProductsToAdd)
             {
-            Logger.Log($"Adding products to cart {string.Join(" ; ", ListOfProductsToAdd)}", false);
             //Iteração para a lista de produtos a serem adicionadas ao carrinho
-            foreach (string productToAdd in ListOfProductsToAdd)
+            foreach (ProductModel productToAdd in listOfProductsToAdd)
                 {
+                Logger.Log($"***** Adding product to cart: {productToAdd.Name}");
                 //Iteração sobre a lista de produtos encontradas na pagina home
                 foreach (IWebElement productInList in ListOfProductsInHome)
                     {
                     //Verificação do produto a ser adicionado com as informações do produto na pagina
-                    if (productInList.Text.Contains(productToAdd))
+                    if (productInList.Text.Contains(productToAdd.Name))
                         {
                         PageHelper.MoveToElement(productInList, "productInList");
                         PageHelper.GetVisibleElement(productInList.FindElement(By.XPath(".//span[contains(.,'Add to cart')]")), "productInList.btnAddToCart").Click();
