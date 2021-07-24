@@ -27,7 +27,8 @@ namespace ModeloAutomacao_CSharp.Factory.Manager
                 "test-type",
                 "start-maximized",
                 "ignore-certificate-errors",
-                "disable-infobar"
+                "disable-infobar",
+                "headless"
                 );
             return chromeOptions;
             }

@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModeloAutomacao_CSharp.Factory;
+using ModeloAutomacao_CSharp.Model;
 using ModeloAutomacao_CSharp.Web.Utils;
 using OpenQA.Selenium;
 
@@ -27,10 +28,10 @@ namespace ModeloAutomacao_CSharp.Web.Pages
         public  IWebElement TextAuthenticationError => DriverFactory.GetWebDriver().FindElement(By.XPath("//div[@class='alert alert-danger']//li"));
         
         //Metodo para realização de login, recebendo parametros, (Futuramente poderia ser feito um modelo de objeto Customer para reutilização e herança para o fluxo de cadastro
-        public bool AuthenticateCustomer(string email, string password)
+        public bool AuthenticateCustomer(CustomerModel customer)
             {
-            PageHelper.GetVisibleElement(InputEmailAddress, "InputEmailAddress").SendKeys(email);
-            PageHelper.GetVisibleElement(InputPassword, "InputPassword").SendKeys(password);
+            PageHelper.GetVisibleElement(InputEmailAddress, "InputEmailAddress").SendKeys(customer.Email);
+            PageHelper.GetVisibleElement(InputPassword, "InputPassword").SendKeys(customer.Password);
             PageHelper.GetVisibleElement(BtnSubmitLogin, "BtnSubmitLogin").Click();
             return true;
             }

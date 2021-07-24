@@ -1,5 +1,4 @@
 ﻿
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModeloAutomacao_CSharp.Factory;
 using ModeloAutomacao_CSharp.Web.Utils;
 using OpenQA.Selenium;
@@ -31,7 +30,7 @@ namespace ModeloAutomacao_CSharp.Web.Pages
         //Ponto de melhoria: Recebimento de um array bidimensional com o nome e produto para melhor seleção do produto, pois existem produtos com os mesmos nomes
         public bool AddProductToCart(string[] ListOfProductsToAdd)
             {
-            Logger.log($"Adding products to cart {string.Join(" ; ", ListOfProductsToAdd)}", false);
+            Logger.Log($"Adding products to cart {string.Join(" ; ", ListOfProductsToAdd)}", false);
             //Iteração para a lista de produtos a serem adicionadas ao carrinho
             foreach (string productToAdd in ListOfProductsToAdd)
                 {

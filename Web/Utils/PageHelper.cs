@@ -37,7 +37,7 @@ namespace ModeloAutomacao_CSharp.Web.Utils
                 MoveToElement(element, description);
                 return element;
                 }
-            catch (Exception e)
+            catch (Exception)
                 {
                 throw new NoSuchElementException($"There was an error while trying to find the element: {description} within 8sec.");
                 }
@@ -52,19 +52,23 @@ namespace ModeloAutomacao_CSharp.Web.Utils
                 ((IJavaScriptExecutor)DriverFactory.GetWebDriver()).ExecuteScript("window.scroll(" + element.Location.X + "," + (element.Location.Y - 200) + ");");
                 actions.MoveToElement(element).Build().Perform();
                 }
-            catch (Exception e)
+            catch (Exception)
                 {
                 throw new ArgumentOutOfRangeException($"Error while trying to move to the following element: {description}.");
                 }
             }
 
         //Método que cria uma evidencia no formato de imagem, que será salvo na pasta de execução
-        public static void TakeScreenshot(string ScenarioName)
+        public static void TakeScreenshot(string ScenarioName, IWebElement element = null, string description = null)
             {
             Directory.CreateDirectory($"{Directory.GetCurrentDirectory()}/Screenshots/");
             string date = DateTime.Now.ToString("dd_MM_yyyy_HH_mm_ss");
             string mainPath = $"{Directory.GetCurrentDirectory()}/Screenshots/";
             ITakesScreenshot screenshotDriver = DriverFactory.GetWebDriver() as ITakesScreenshot;
+            if (element != null && description != null)
+                {
+                MoveToElement(element, description);
+                }
             Screenshot screenshot = screenshotDriver.GetScreenshot();
             screenshot.SaveAsFile($"{mainPath}{ScenarioName}_{date}.png");
             }
